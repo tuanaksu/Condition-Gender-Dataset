@@ -60,8 +60,6 @@ FUN <- function(x){
     x$oe = ifelse(x$padj <= 0.05, TRUE, FALSE)
     return(x)
 }
-```
-
 library("dplyr")
 library("ggplot2")
 res_tableOE_volcano <- res_tableOE_df %>% mutate(oe = padj < 0.05)
@@ -73,6 +71,7 @@ ggplot(res_tableOE_volcano) +
     theme(legend.position = "none",
           plot.title = element_text(size = rel(1.5), hjust = 0.5),
           axis.title = element_text(size = rel(1.25)))
+```
 
 > library("AnnotationDbi")
 > library("org.Hs.eg.db")
