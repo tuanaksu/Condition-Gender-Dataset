@@ -72,7 +72,7 @@ ggplot(res_tableOE_volcano) +
           plot.title = element_text(size = rel(1.5), hjust = 0.5),
           axis.title = element_text(size = rel(1.25)))
 ```
-
+```R
 > library("AnnotationDbi")
 > library("org.Hs.eg.db")
 > columns(org.Hs.eg.db)
@@ -108,3 +108,4 @@ ggplot(res_tableOE_volcano) +
 > keggresids = substr(keggrespathways, start=1, stop=8)
 > plot_pathway = function(pid) pathview(gene.data=foldchanges, pathway.id=pid, species="hsa", new.signature=FALSE)
 > tmp = sapply(keggresids, function(pid) pathview(gene.data=foldchanges, pathway.id=pid, species="hsa"))
+```
