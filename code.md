@@ -73,39 +73,39 @@ ggplot(res_tableOE_volcano) +
           axis.title = element_text(size = rel(1.25)))
 ```
 ```R
-> library("AnnotationDbi")
-> library("org.Hs.eg.db")
-> columns(org.Hs.eg.db)
-> res_tableOE$symbol <- mapIds(org.Hs.eg.db,
-+                          keys=row.names(res_tableOE), 
-+                          column="SYMBOL",
-+                          keytype="ENSEMBL",
-+                          multiVals="first")
-> res_tableOE$entrez = mapIds(org.Hs.eg.db,
-+                             keys=row.names(res_tableOE), 
-+                             column="ENTREZID",
-+                             keytype="ENSEMBL",
-+                             multiVals="first")
-> res_tableOE$name =   mapIds(org.Hs.eg.db,
-+                             keys=row.names(res_tableOE), 
-+                             column="GENENAME",
-+                             keytype="ENSEMBL",
-+                             multiVals="first")
-> library(pathview)
-> library(gage)
-> library(gageData)
-> data(kegg.sets.hs)
-> data(sigmet.idx.hs)
-> kegg.sets.hs = kegg.sets.hs[sigmet.idx.hs]
-> foldchanges =res_tableOE$log2FoldChange
-> names(foldchanges) = res_tableOE$entrez
-> keggres = gage(foldchanges, gsets=kegg.sets.hs, same.dir=TRUE)
-> keggrespathways = data.frame(id=rownames(keggres$greater), keggres$greater) %>% 
-+     tbl_df() %>% 
-+     filter(row_number()<=5) %>% 
-+     .$id %>% 
-+     as.character()
-> keggresids = substr(keggrespathways, start=1, stop=8)
-> plot_pathway = function(pid) pathview(gene.data=foldchanges, pathway.id=pid, species="hsa", new.signature=FALSE)
-> tmp = sapply(keggresids, function(pid) pathview(gene.data=foldchanges, pathway.id=pid, species="hsa"))
+library("AnnotationDbi")
+library("org.Hs.eg.db")
+columns(org.Hs.eg.db)
+res_tableOE$symbol <- mapIds(org.Hs.eg.db,
+                         keys=row.names(res_tableOE), 
+                         column="SYMBOL",
+                         keytype="ENSEMBL",
+                         multiVals="first")
+res_tableOE$entrez = mapIds(org.Hs.eg.db,
+                            keys=row.names(res_tableOE), 
+                            column="ENTREZID",
+                            keytype="ENSEMBL",
+                            multiVals="first")
+res_tableOE$name =   mapIds(org.Hs.eg.db,
+                            keys=row.names(res_tableOE), 
+                            column="GENENAME",
+                            keytype="ENSEMBL",
+                            multiVals="first")
+library(pathview)
+library(gage)
+library(gageData)
+data(kegg.sets.hs)
+data(sigmet.idx.hs)
+kegg.sets.hs = kegg.sets.hs[sigmet.idx.hs]
+foldchanges =res_tableOE$log2FoldChange
+names(foldchanges) = res_tableOE$entrez
+keggres = gage(foldchanges, gsets=kegg.sets.hs, same.dir=TRUE)
+keggrespathways = data.frame(id=rownames(keggres$greater), keggres$greater) %>% 
+    tbl_df() %>% 
+    filter(row_number()<=5) %>% 
+    .$id %>% 
+    as.character()
+keggresids = substr(keggrespathways, start=1, stop=8)
+plot_pathway = function(pid) pathview(gene.data=foldchanges, pathway.id=pid, species="hsa", new.signature=FALSE)
+tmp = sapply(keggresids, function(pid) pathview(gene.data=foldchanges, pathway.id=pid, species="hsa"))
 ```
